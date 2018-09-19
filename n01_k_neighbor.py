@@ -21,7 +21,7 @@ def create_data():
     plt.scatter([i[0] for i in up_li], [i[1] for i in up_li], color='b')  # s为size，按每个点的坐标绘制，alpha为透明度
     plt.scatter([i[0] for i in down_li], [i[1] for i in down_li], color='r')  # s为size，按每个点的坐标绘制，alpha为透明度
     plt.plot([i / 10 for i in range(1000)], [i / 10 for i in range(1000)], color='g')
-    plt.show()
+    # plt.show()
     return up_li, down_li
 
 
@@ -51,7 +51,7 @@ def calculate_neighbor_precision(train_data, test_data, K=3):
     for test in test_data:
         distance_li = list()
         label = test[2]
-        print(label)
+        # print(label)
         for train in train_data:
             distance = ((test[0] - train[0]) ** 2 + (test[1] - train[1]) ** 2) ** 0.5
             distance_li.append((distance, train))
@@ -60,21 +60,39 @@ def calculate_neighbor_precision(train_data, test_data, K=3):
         distance_li = sorted(distance_li, key=lambda x: x[0])
 
         predict_label = [i[1][2] for i in distance_li[:K]]
-        print(predict_label)
-        k_num = 0
-        for lab in predict_label:
-            if lab == label:
-                k_num += 1
+        # print(predict_label)
 
-        if k_num >= (int(K/2)+1):
+        k_num = predict_label.count(label)
+
+        if k_num >= (int(K / 2) + 1):
             right_num += 1
 
     precision = right_num / num
     print(precision)
 
 
+def simple_predict(train_data, predict_li):
+    distance_li = list()
+    for train in train_data:
+        distance = ((predict_li[0] - train[0]) ** 2 + (predict_li[1] - train[1]) ** 2) ** 0.5
+        distance_li.append((distance, train))
+
+    # 排序，获取最小的K个点，并判断其分类
+    distance_li = sorted(distance_li, key=lambda x: x[0])
+    predict_label = [i[1][2] for i in distance_li[:K]]
+    down_num = predict_label.count('down')
+    up_num = predict_label.count('up')
+    if down_num > up_num:
+        print('down')
+    else:
+        print('up')
+
+
 if __name__ == '__main__':
-    K = 15
+    # predict_li:
+    predict_li = [12, 13]
+    K = 5
     a, b = create_data()
     data_train, data_test = split_data(a, b)
     calculate_neighbor_precision(data_train, data_test, K)
+    simple_predict(data_train, predict_li)
