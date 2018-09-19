@@ -37,8 +37,8 @@ def split_data(a, b):
     test_data = li[int(len(li) * 0.8):]
     print(len(train_data))
     print(len(test_data))
-    for i in test_data:
-        print(i)
+    # for i in test_data:
+    #     print(i)
     return train_data, test_data
 
 
@@ -46,8 +46,8 @@ def calculate_neighbor_precision(train_data, test_data, K=3):
     """计算20%的数据在80%的上面分类预测的精度有多少
     """
     num = len(test_data)
-
     right_num = 0
+    # 计算测试集的数据分别于训练集的数据里的每个数据的距离
     for test in test_data:
         distance_li = list()
         label = test[2]
@@ -55,6 +55,8 @@ def calculate_neighbor_precision(train_data, test_data, K=3):
         for train in train_data:
             distance = ((test[0] - train[0]) ** 2 + (test[1] - train[1]) ** 2) ** 0.5
             distance_li.append((distance, train))
+
+        # 排序，获取最小的K个点，并判断其分类
         distance_li = sorted(distance_li, key=lambda x: x[0])
 
         predict_label = [i[1][2] for i in distance_li[:K]]
