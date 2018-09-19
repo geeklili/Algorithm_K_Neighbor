@@ -89,7 +89,7 @@ def simple_predict(train_data, predict_li):
 
 
 if __name__ == '__main__':
-    # predict_li:
+    # predict_li: 测试点
     predict_li = [12, 13]
     K = 5
     a, b = create_data()
