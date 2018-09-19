@@ -72,6 +72,7 @@ def calculate_neighbor_precision(train_data, test_data, K=3):
 
 
 def simple_predict(train_data, predict_li):
+    """预测数据"""
     distance_li = list()
     for train in train_data:
         distance = ((predict_li[0] - train[0]) ** 2 + (predict_li[1] - train[1]) ** 2) ** 0.5
