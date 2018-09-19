@@ -21,11 +21,11 @@ def create_data():
     plt.scatter([i[0] for i in up_li], [i[1] for i in up_li], color='b')  # s为size，按每个点的坐标绘制，alpha为透明度
     plt.scatter([i[0] for i in down_li], [i[1] for i in down_li], color='r')  # s为size，按每个点的坐标绘制，alpha为透明度
     plt.plot([i / 10 for i in range(1000)], [i / 10 for i in range(1000)], color='g')
-    # plt.show()
+    plt.show()
     return up_li, down_li
 
 
-def split_data(a, b):
+def split_data(a, b, CUT):
     """切分数据"""
     li = list()
     for i in a:
@@ -33,10 +33,10 @@ def split_data(a, b):
     for j in b:
         li.append(j)
     random.shuffle(li)
-    train_data = li[:int(len(li) * 0.8)]
-    test_data = li[int(len(li) * 0.8):]
+    train_data = li[:int(len(li) * CUT)]
+    test_data = li[int(len(li) * CUT):]
     print('训练集大小：', len(train_data))
-    print('测试集大小：',len(test_data))
+    print('测试集大小：', len(test_data))
     # for i in test_data:
     #     print(i)
     return train_data, test_data
@@ -68,7 +68,7 @@ def calculate_neighbor_precision(train_data, test_data, K=3):
             right_num += 1
 
     precision = right_num / num
-    print('准确率为：',precision)
+    print('准确率为：', precision)
 
 
 def simple_predict(train_data, predict_li):
@@ -83,16 +83,23 @@ def simple_predict(train_data, predict_li):
     down_num = predict_label.count('down')
     up_num = predict_label.count('up')
     if down_num > up_num:
-        print('down')
+        print('预测的结果是：down')
     else:
-        print('up')
+        print('预测的结果是：up')
 
 
 if __name__ == '__main__':
     # predict_li: 测试点
     predict_li = [12, 13]
+    print('预测点为：', predict_li)
     K = 5
-    a, b = create_data()
-    data_train, data_test = split_data(a, b)
+    # 切分比例
+    CUT = 0.8
+    # 创建数据
+    up_data, down_data = create_data()
+    # 切分数据
+    data_train, data_test = split_data(up_data, down_data, CUT)
+    # 查看精度
     calculate_neighbor_precision(data_train, data_test, K)
+    # 预测数据
     simple_predict(data_train, predict_li)
