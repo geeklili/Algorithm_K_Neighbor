@@ -21,7 +21,7 @@ def create_data():
     plt.scatter([i[0] for i in up_li], [i[1] for i in up_li], color='b')  # s为size，按每个点的坐标绘制，alpha为透明度
     plt.scatter([i[0] for i in down_li], [i[1] for i in down_li], color='r')  # s为size，按每个点的坐标绘制，alpha为透明度
     plt.plot([i / 10 for i in range(1000)], [i / 10 for i in range(1000)], color='g')
-    # plt.show()
+    plt.show()
     return up_li, down_li
 
 
@@ -37,7 +37,8 @@ def split_data(a, b):
     test_data = li[int(len(li) * 0.8):]
     print(len(train_data))
     print(len(test_data))
-    print(test_data)
+    for i in test_data:
+        print(i)
     return train_data, test_data
 
 
