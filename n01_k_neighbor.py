@@ -16,8 +16,8 @@ def create_data():
             down_li.append([x, y, 'down'])
     up_li = up_li[:1000]
     down_li = down_li[:1000]
-    print(up_li)
-    print(down_li)
+    # print(up_li)
+    # print(down_li)
     plt.scatter([i[0] for i in up_li], [i[1] for i in up_li], color='b')  # s为size，按每个点的坐标绘制，alpha为透明度
     plt.scatter([i[0] for i in down_li], [i[1] for i in down_li], color='r')  # s为size，按每个点的坐标绘制，alpha为透明度
     plt.plot([i / 10 for i in range(1000)], [i / 10 for i in range(1000)], color='g')
@@ -35,8 +35,8 @@ def split_data(a, b):
     random.shuffle(li)
     train_data = li[:int(len(li) * 0.8)]
     test_data = li[int(len(li) * 0.8):]
-    print(len(train_data))
-    print(len(test_data))
+    print('训练集大小：', len(train_data))
+    print('测试集大小：',len(test_data))
     # for i in test_data:
     #     print(i)
     return train_data, test_data
@@ -68,7 +68,7 @@ def calculate_neighbor_precision(train_data, test_data, K=3):
             right_num += 1
 
     precision = right_num / num
-    print(precision)
+    print('准确率为：',precision)
 
 
 def simple_predict(train_data, predict_li):
