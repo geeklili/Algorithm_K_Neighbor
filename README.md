@@ -1,11 +1,11 @@
 # Algorithm_K_Neighbor
-This project is the implementation of the K nearest neighbor algorithm
-* data was created like this
+k近邻算法的实现
+* 数据格式如下
 
 ![](./img/data_create.jpg)
 
 
-* 'up' means the data on the top of the function y=x
-* 'down' means the data on the bottom of the function y=x
+* up指的是在函数 y=x上方的数据
+× down指的是在函数 y=x下方的数据
 
 ![](./img/data.jpg)
